@@ -26,6 +26,7 @@ repositories {
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
+    implementation ("com.fasterxml.jackson.core:jackson-databind")
     compileOnly("org.projectlombok:lombok")
     runtimeOnly("org.postgresql:postgresql")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
