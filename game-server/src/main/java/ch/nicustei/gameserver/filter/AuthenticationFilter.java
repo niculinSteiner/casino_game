@@ -13,6 +13,12 @@ import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
 
+/**
+ * This filter intercepts each request to check for a valid Google OAuth id_token.
+ * It ensures that only requests with a valid "Authorization" header containing
+ * a "Bearer" token are allowed to proceed. The token is validated by verifying
+ * it with Google's OAuth2 token verification endpoint.
+ */
 @Component
 public class AuthenticationFilter extends OncePerRequestFilter {
 
@@ -20,7 +26,8 @@ public class AuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {
         String authorization = request.getHeader("Authorization");
         if (authorization == null || !authorization.startsWith("Bearer ")) {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token missing");
             return;
         }
         URL url = URI.create("https://oauth2.googleapis.com/tokeninfo?id_token=" + authorization.substring(7)).toURL();
@@ -31,8 +38,11 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 
         if (con.getResponseCode() != HttpURLConnection.HTTP_OK) {
             response.setStatus(con.getResponseCode());
+            response.sendError(con.getResponseCode(), "Invalid token");
             return;
         }
+
+        // If the token is valid, continue with the filter chain
         filterChain.doFilter(request, response);
     }
 }

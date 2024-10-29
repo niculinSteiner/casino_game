@@ -4,6 +4,7 @@ import ch.nicustei.gameserver.domain.GameResult;
 import ch.nicustei.gameserver.domain.Playground;
 import ch.nicustei.gameserver.domain.RouletteBet;
 import ch.nicustei.gameserver.domain.dto.PlaygroundDTO;
+import ch.nicustei.gameserver.domain.dto.RouletteBetDTO;
 import ch.nicustei.gameserver.domain.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static ch.nicustei.gameserver.domain.BetNumber.of;
 import static java.util.Comparator.comparingInt;
 
 @RestController
@@ -24,7 +26,7 @@ public final class GameController {
 
     @Autowired
     public GameController(GameService<RouletteBet> gameService) {
-	    this.gameService = gameService;
+        this.gameService = gameService;
     }
 
     @GetMapping("/playground")
@@ -37,7 +39,11 @@ public final class GameController {
     }
 
     @GetMapping("/start")
-    public GameResult startGame(@RequestBody  RouletteBet rouletteBet) {
-        return gameService.startGame(rouletteBet);
+    public GameResult startGame(@RequestBody RouletteBetDTO rouletteBetDTO) {
+        return gameService.startGame(new RouletteBet(
+                rouletteBetDTO.getAmount(),
+                rouletteBetDTO.getColour(),
+                rouletteBetDTO.getNumber() == null ? null : of(rouletteBetDTO.getNumber()),
+                rouletteBetDTO.getMultiplicationFactor()));
     }
 }
