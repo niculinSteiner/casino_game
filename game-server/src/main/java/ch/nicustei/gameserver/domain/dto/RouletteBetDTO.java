@@ -1,6 +1,5 @@
 package ch.nicustei.gameserver.domain.dto;
 
-import ch.nicustei.gameserver.domain.BetNumber;
 import ch.nicustei.gameserver.domain.Colour;
 import jakarta.annotation.Nullable;
 import lombok.AllArgsConstructor;

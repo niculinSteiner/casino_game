@@ -7,10 +7,7 @@ import ch.nicustei.gameserver.domain.dto.PlaygroundDTO;
 import ch.nicustei.gameserver.domain.dto.RouletteBetDTO;
 import ch.nicustei.gameserver.domain.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,6 +27,7 @@ public final class GameController {
     }
 
     @GetMapping("/playground")
+    @CrossOrigin
     public List<PlaygroundDTO> getPlayground() {
         Playground playground = Playground.aDefaultPlayground();
         return playground.getPlayGroundMap().entrySet().stream()
@@ -39,6 +37,7 @@ public final class GameController {
     }
 
     @GetMapping("/start")
+    @CrossOrigin
     public GameResult startGame(@RequestBody RouletteBetDTO rouletteBetDTO) {
         return gameService.startGame(new RouletteBet(
                 rouletteBetDTO.getAmount(),
