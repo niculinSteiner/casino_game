@@ -21,14 +21,14 @@ public class RouletteService extends GameServiceBase<RouletteBet> {
             return new GameResult(false, "Bet is Invalid", Optional.of(bet.getAmount()), randomNumber.colour, randomNumber.number.getNumber());
         }
         if (bet.getColour() == null) {
-            boolean isWin = bet.getNumber().equals(randomNumber.number);
+            boolean isWin = bet.getNumber().getNumber() == randomNumber.number.getNumber();
             return isWin ? getWin(bet.setMultiplicationFactor(36.00), randomNumber) : getLose(randomNumber);
         }
         if (bet.getNumber() == null) {
             boolean isWin = bet.getColour().equals(randomNumber.colour);
             return isWin ? getWin(bet, randomNumber) : getLose(randomNumber);
         }
-        return new GameResult(false, "U lose.", Optional.empty(), randomNumber.colour, randomNumber.number.getNumber());
+        return getLose(randomNumber);
     }
 
     private static GameResult getWin(RouletteBet bet, ColourNumberPair randomNumber) {
