@@ -1,0 +1,98 @@
+openapi: 3.0.1
+info:
+  title: Casino Game API
+  description: API for managing casino games like Roulette
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+paths:
+  /games/roulette/playground:
+    get:
+      summary: Get Playground Info
+      operationId: getPlayground
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Playground information retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Playground info retrieved successfully"
+                  data:
+                    type: object
+                    additionalProperties: true
+        '400':
+          description: Bad request, possibly due to invalid parameters
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Invalid request"
+
+  /games/roulette/start:
+    post:
+      summary: Start a Roulette Game
+      operationId: startGame
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                amount:
+                  type: number
+                  example: 20
+                colour:
+                  type: string
+                  enum: [RED, BLACK, GREEN]
+                  example: "RED"
+                number:
+                  type: integer
+                  nullable: true
+                  example: null
+                multiplicationFactor:
+                  type: integer
+                  nullable: true
+                  example: null
+      responses:
+        '200':
+          description: Game started successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Game started successfully"
+                  data:
+                    type: object
+                    additionalProperties: true
+        '400':
+          description: Bad request, possibly due to invalid input data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Invalid input data"
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

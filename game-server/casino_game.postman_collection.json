@@ -1,0 +1,175 @@
+{
+	"info": {
+		"_postman_id": "b6314f77-721a-4240-bde6-52f1014cf94d",
+		"name": "casino_game",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20995617"
+	},
+	"item": [
+		{
+			"name": "getPlayground",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Response status code is 200', function () {",
+							"    pm.expect(pm.response.code).to.equal(200);",
+							"});",
+							"",
+							"pm.test('Response has the required fields - betNumber and colour', function () {",
+							"    const responseData = pm.response.json();",
+							"",
+							"    pm.expect(responseData).to.be.an('array');",
+							"    responseData.forEach(function(item) {",
+							"        pm.expect(item).to.have.property('betNumber');",
+							"        pm.expect(item).to.have.property('colour');",
+							"    });",
+							"});",
+							"",
+							"pm.test('BetNumber is a non-negative integer', function () {",
+							"    const responseData = pm.response.json();",
+							"",
+							"    responseData.forEach(function(item){",
+							"        pm.expect(item.betNumber).to.be.a('number').and.to.be.at.least(0);",
+							"    });",
+							"});",
+							"",
+							"pm.test('Colour is a non-empty string', function () {",
+							"    const responseData = pm.response.json();",
+							"",
+							"    responseData.forEach(function(item) {",
+							"        pm.expect(item.colour).to.be.a('string').and.to.have.lengthOf.at.least(1, 'Colour should not be empty');",
+							"    });",
+							"});",
+							"",
+							"pm.test('Response time is less than 200ms', function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"pm.test('The response data length must be greater than zero', function () {",
+							"    const responseData = pm.response.json();",
+							"    pm.expect(responseData.length).to.be.equals(37, 'Response data should not be empty');",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImM4OGQ4MDlmNGRiOTQzZGY1M2RhN2FjY2ZkNDc3NjRkMDViYTM5MWYiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiI4NjkyMzY0MDk0MjktZDgxbTBuNWVraTVwYWtwZmcydTZwOG9xaDBvcjRkMDEuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiI4NjkyMzY0MDk0MjktZDgxbTBuNWVraTVwYWtwZmcydTZwOG9xaDBvcjRkMDEuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMTcwMTg0NzQ0NDM2MTE1MDYxNTMiLCJlbWFpbCI6Im1pY2hlbC5zdHVkZXI5OUBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibmJmIjoxNzMwMjAzNjg1LCJuYW1lIjoiTWljaGVsIFN0dWRlciIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQ2c4b2NJYUsybzE4NHVwX0xQVnRjYjFKV2paYkVhSmtab1puUkZFMDdHOWd2b1hKX0R6LVE9czk2LWMiLCJnaXZlbl9uYW1lIjoiTWljaGVsIiwiZmFtaWx5X25hbWUiOiJTdHVkZXIiLCJpYXQiOjE3MzAyMDM5ODUsImV4cCI6MTczMDIwNzU4NSwianRpIjoiNzc0NzdlYmVlZDMyY2IwY2Y5NzM4NGIzYzg5NzQ2MjgxMjYwYTVmYiJ9.C4_rSyfoqVt3-YuLAVP_wlvNBMUVad7-Ifqyk-D-BYfEIxTr8g3sGqGWj1PtzKG8mb9IRfjTv7_moIwl2ZY7nqwYduy3POSlmRV_GNOJ-lSrX5Q-NyHNU98_h-KOiK3EsNNhB4yQUAMKzr4nVwcA6dG5wK00XfPnxdLobbQifZUJovM4qcnMNDDPUzWg736iZYSB5cvZgF1S8PiJPNVK1O7DEP1dnrMI0u0-CCv4FjEKrHvSEyVDkbwtpmu5xaOOG8JHede9oNVzObK478T1YObreu5hzVTrM4VvLOLLW5sglKJhnSfB-cV3YW-ltQdbFYryOl1UyDDMT6_lEvWTlQ",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/games/roulette/playground",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"games",
+						"roulette",
+						"playground"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "startgame",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Response status code is 200', function () {",
+							"    pm.expect(pm.response.code).to.equal(200);",
+							"});",
+							"",
+							"pm.test('Response has the required fields', function () {",
+							"    const responseData = pm.response.json();",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.isSuccess).to.exist;",
+							"    pm.expect(responseData.message).to.exist;",
+							"    pm.expect(responseData.actualColour).to.exist;",
+							"    pm.expect(responseData.actualNumber).to.exist;",
+							"});",
+							"",
+							"pm.test('ActualColour is a valid color format', function () {",
+							"    const responseData = pm.response.json();",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.actualColour).to.match(/\\b(RED|BLACK|GREEN)\\b/);",
+							"});",
+							"",
+							"pm.test('Presence of Content-Type header in the response', function () {",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.exist;",
+							"});",
+							"",
+							"pm.test('Response schema is valid', function () {",
+							"    var schema = {",
+							"        type: 'object',",
+							"        properties: {",
+							"            isSuccess: { type: 'boolean' },",
+							"            message: { type: 'string' },",
+							"            moneyWon: { type: ['number', 'null'] },",
+							"            actualColour: { type: 'string' },",
+							"            actualNumber: { type: 'number' }",
+							"        },",
+							"        required: ['isSuccess', 'message', 'moneyWon', 'actualColour', 'actualNumber']",
+							"    };",
+							"    var response = pm.response.json();",
+							"    pm.expect(tv4.validate(response, schema)).to.be.true;",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImM4OGQ4MDlmNGRiOTQzZGY1M2RhN2FjY2ZkNDc3NjRkMDViYTM5MWYiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiI4NjkyMzY0MDk0MjktZDgxbTBuNWVraTVwYWtwZmcydTZwOG9xaDBvcjRkMDEuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiI4NjkyMzY0MDk0MjktZDgxbTBuNWVraTVwYWtwZmcydTZwOG9xaDBvcjRkMDEuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMTcwMTg0NzQ0NDM2MTE1MDYxNTMiLCJlbWFpbCI6Im1pY2hlbC5zdHVkZXI5OUBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibmJmIjoxNzMwMjAzNjg1LCJuYW1lIjoiTWljaGVsIFN0dWRlciIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQ2c4b2NJYUsybzE4NHVwX0xQVnRjYjFKV2paYkVhSmtab1puUkZFMDdHOWd2b1hKX0R6LVE9czk2LWMiLCJnaXZlbl9uYW1lIjoiTWljaGVsIiwiZmFtaWx5X25hbWUiOiJTdHVkZXIiLCJpYXQiOjE3MzAyMDM5ODUsImV4cCI6MTczMDIwNzU4NSwianRpIjoiNzc0NzdlYmVlZDMyY2IwY2Y5NzM4NGIzYzg5NzQ2MjgxMjYwYTVmYiJ9.C4_rSyfoqVt3-YuLAVP_wlvNBMUVad7-Ifqyk-D-BYfEIxTr8g3sGqGWj1PtzKG8mb9IRfjTv7_moIwl2ZY7nqwYduy3POSlmRV_GNOJ-lSrX5Q-NyHNU98_h-KOiK3EsNNhB4yQUAMKzr4nVwcA6dG5wK00XfPnxdLobbQifZUJovM4qcnMNDDPUzWg736iZYSB5cvZgF1S8PiJPNVK1O7DEP1dnrMI0u0-CCv4FjEKrHvSEyVDkbwtpmu5xaOOG8JHede9oNVzObK478T1YObreu5hzVTrM4VvLOLLW5sglKJhnSfB-cV3YW-ltQdbFYryOl1UyDDMT6_lEvWTlQ",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{  \"amount\": 20,\r\n  \"colour\": \"RED\",\r\n  \"number\": null,\r\n  \"multiplicationFactor\": null\r\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/games/roulette/start",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"games",
+						"roulette",
+						"start"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
