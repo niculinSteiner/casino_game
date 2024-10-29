@@ -20,10 +20,10 @@ import static java.util.Comparator.comparingInt;
 @RequestMapping("/games/roulette")
 public final class GameController {
 
-    private final GameService gameService;
+    private final GameService<RouletteBet> gameService;
 
     @Autowired
-    public GameController(GameService gameService) {
+    public GameController(GameService<RouletteBet> gameService) {
 	    this.gameService = gameService;
     }
 
@@ -40,6 +40,4 @@ public final class GameController {
     public GameResult startGame(@RequestBody  RouletteBet rouletteBet) {
         return gameService.startGame(rouletteBet);
     }
-
-
 }

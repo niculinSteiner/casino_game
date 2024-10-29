@@ -26,4 +26,14 @@ public class BetNumber {
     private boolean isBetween(int number, int min, int max) {
         return number >= min && number <= max;
     }
+
+    public Colour mapToColour () {
+        if (number == 0) {
+            return Colour.GREEN;
+        }
+        if (number % 2 == 0) {
+            return Colour.BLACK;
+        }
+        return Colour.RED;
+    }
 }

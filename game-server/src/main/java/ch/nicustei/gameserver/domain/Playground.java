@@ -25,11 +25,8 @@ public final class Playground {
         Map<BetNumber, Colour> fields = new HashMap<>();
         fields.put(of(0), GREEN);
         for (int i = 1; i <= 36; i++) {
-            if (i % 2 == 0) {
-                fields.put(of(i), BLACK);
-                continue;
-            }
-            fields.put(of(i), RED);
+            BetNumber number = of(i);
+            fields.put(number, number.mapToColour());
         }
         return fields;
     }
