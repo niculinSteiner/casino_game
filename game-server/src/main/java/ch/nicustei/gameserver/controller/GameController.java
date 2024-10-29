@@ -27,6 +27,13 @@ public final class GameController {
         this.gameService = gameService;
     }
 
+
+    /**
+     * Returns the default playground configuration that includes all available
+     * betting options for the roulette game.
+     *
+     * @return A list of PlaygroundDTO objects representing the betting options.
+     */
     @GetMapping("/playground")
     public List<PlaygroundDTO> getPlayground() {
         Playground playground = Playground.aDefaultPlayground();
@@ -36,6 +43,12 @@ public final class GameController {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Starts a new roulette game with the provided betting information.
+     *
+     * @param rouletteBetDTO The betting information containing the amount, colour, number, and multiplication factor.
+     * @return The result of the game, containing information about the outcome.
+     */
     @PostMapping("/start")
     public GameResult startGame(@RequestBody RouletteBetDTO rouletteBetDTO) {
         return gameService.startGame(new RouletteBet(

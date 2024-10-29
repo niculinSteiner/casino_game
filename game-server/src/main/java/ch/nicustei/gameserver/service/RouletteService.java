@@ -18,25 +18,25 @@ public class RouletteService extends GameServiceBase<RouletteBet> {
     private GameResult play(RouletteBet bet) {
         ColourNumberPair randomNumber = getRandomNumber();
         if (bet.getColour() == null && bet.getNumber() == null) {
-            return new GameResult(false, "Bet is Invalid", Optional.of(bet.getAmount()));
+            return new GameResult(false, "Bet is Invalid", Optional.of(bet.getAmount()), randomNumber.colour, randomNumber.number.getNumber());
         }
         if (bet.getColour() == null) {
             boolean isWin = bet.getNumber().equals(randomNumber.number);
-            return isWin ? getWin(bet.setMultiplicationFactor(36.00)) : getLose();
+            return isWin ? getWin(bet.setMultiplicationFactor(36.00), randomNumber) : getLose(randomNumber);
         }
         if (bet.getNumber() == null) {
             boolean isWin = bet.getColour().equals(randomNumber.colour);
-            return isWin ? getWin(bet) : getLose();
+            return isWin ? getWin(bet, randomNumber) : getLose(randomNumber);
         }
-        return new GameResult(false, "U lose.", Optional.empty());
+        return new GameResult(false, "U lose.", Optional.empty(), randomNumber.colour, randomNumber.number.getNumber());
     }
 
-    private static GameResult getWin(RouletteBet bet) {
-        return new GameResult(true, "Congratulation u win.", calculatePriceMoneyByFactor(bet));
+    private static GameResult getWin(RouletteBet bet, ColourNumberPair randomNumber) {
+        return new GameResult(true, "Congratulation u win.", calculatePriceMoneyByFactor(bet), randomNumber.colour, randomNumber.number.getNumber());
     }
 
-    private static GameResult getLose() {
-        return new GameResult(false, "U lose", Optional.empty());
+    private static GameResult getLose(ColourNumberPair randomNumber) {
+        return new GameResult(false, "U lose", Optional.empty(), randomNumber.colour, randomNumber.number.getNumber());
     }
 
     private static ColourNumberPair getRandomNumber() {

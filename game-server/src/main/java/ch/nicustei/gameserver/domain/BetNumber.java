@@ -19,7 +19,7 @@ public class BetNumber {
             this.number = number;
         }
         else {
-            throw new IllegalArgumentException("test");
+            throw new IllegalArgumentException("Provided betting number is invalid.");
         }
     }
 

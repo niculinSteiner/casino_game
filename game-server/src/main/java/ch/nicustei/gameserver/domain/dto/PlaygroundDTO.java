@@ -11,5 +11,4 @@ import lombok.Setter;
 public class PlaygroundDTO {
     private int betNumber;
     private Colour colour;
-
 }
