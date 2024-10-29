@@ -17,6 +17,7 @@ import static java.util.Comparator.comparingInt;
 
 @RestController
 @RequestMapping("/games/roulette")
+@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*", allowCredentials = "true")
 public final class GameController {
 
     private final GameService<RouletteBet> gameService;
@@ -27,7 +28,6 @@ public final class GameController {
     }
 
     @GetMapping("/playground")
-    @CrossOrigin
     public List<PlaygroundDTO> getPlayground() {
         Playground playground = Playground.aDefaultPlayground();
         return playground.getPlayGroundMap().entrySet().stream()
@@ -37,7 +37,6 @@ public final class GameController {
     }
 
     @GetMapping("/start")
-    @CrossOrigin
     public GameResult startGame(@RequestBody RouletteBetDTO rouletteBetDTO) {
         return gameService.startGame(new RouletteBet(
                 rouletteBetDTO.getAmount(),
