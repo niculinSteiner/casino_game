@@ -36,7 +36,7 @@ public final class GameController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/start")
+    @PostMapping("/start")
     public GameResult startGame(@RequestBody RouletteBetDTO rouletteBetDTO) {
         return gameService.startGame(new RouletteBet(
                 rouletteBetDTO.getAmount(),
