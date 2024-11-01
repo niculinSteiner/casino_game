@@ -11,7 +11,7 @@ import ch.nicustei.gameserver.domain.GameResult;
 public interface GameService<T extends GameBet> {
 
     /**
-     * Method to start the game.
+     * Method to start the game. This method should only be used if the full game can be done in one request.
      *
      * @param bet bet, which should be validated against the game result.
      * @return a game result, containing all required informations.
